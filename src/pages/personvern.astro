@@ -8,6 +8,9 @@ const L = (p: string) => localizePath(p, lang);
 
 const updated = "2026-10-07";
 
+/** Uten PUBLIC_GA_ID lastes ingen analyse, og siden setter ingen informasjonskapsler. */
+const analyticsEnabled = Boolean(import.meta.env.PUBLIC_GA_ID);
+
 const s =
   lang === "en"
     ? {
@@ -27,18 +30,24 @@ const s =
             h: "What this site collects",
             p: [
               "This website is a static site. It has no user accounts, no comment field and no tracking of individuals.",
-              "If you accept statistics cookies, we use Google Analytics to count visits and see which pages are used. The data is aggregated and your IP address is anonymised. We do not use it for advertising and we do not share it for advertising purposes.",
+              analyticsEnabled
+                ? "If you accept statistics cookies, we use Google Analytics to count visits and see which pages are used. The data is aggregated and your IP address is anonymised. We do not use it for advertising and we do not share it for advertising purposes."
+                : "The site currently sets no cookies at all, and no visit measurement is running. If we switch statistics on later, nothing will be loaded before you have given consent, and you will be asked first.",
               "If you write to us through the contact form or by email, we keep what you write for as long as it takes to answer you and to handle any order it relates to.",
               "If you sign up for the newsletter, we store your email address until you unsubscribe. Every newsletter carries an unsubscribe link.",
             ],
           },
           {
             h: "Cookies",
-            p: [
-              "Necessary cookies make the site work and are always on. They store nothing that identifies you.",
-              "Statistics cookies are only set if you give consent. Nothing is loaded before you choose, and you can change your choice at any time with the button on this page.",
-              "Your choice is stored locally in your own browser, not on our servers.",
-            ],
+            p: analyticsEnabled
+              ? [
+                  "Necessary cookies make the site work and are always on. They store nothing that identifies you.",
+                  "Statistics cookies are only set if you give consent. Nothing is loaded before you choose, and you can change your choice at any time with the button on this page.",
+                  "Your choice is stored locally in your own browser, not on our servers.",
+                ]
+              : [
+                  "This site sets no cookies. There is no tracking, no advertising and no visit measurement.",
+                ],
           },
           {
             h: "The online shop",
@@ -49,7 +58,9 @@ const s =
           {
             h: "Who else sees the data",
             p: [
-              "The site is hosted by Vercel, which processes technical log data as part of serving the pages. Google Analytics processes visit statistics only if you consented. Email reaches us through our ordinary email provider.",
+              analyticsEnabled
+                ? "The site is hosted by Vercel, which processes technical log data as part of serving the pages. Google Analytics processes visit statistics only if you consented. Email reaches us through our ordinary email provider."
+                : "The site is hosted by Vercel, which processes technical log data as part of serving the pages. Email reaches us through our ordinary email provider.",
               "We never sell personal data, and we never pass it on except where it is needed to fulfil an agreement with you or where the law requires it.",
             ],
           },
@@ -79,18 +90,24 @@ const s =
             h: "Hva denne siden samler inn",
             p: [
               "Dette nettstedet er en statisk side. Den har ingen brukerkontoer, ingen kommentarfelt og ingen sporing av enkeltpersoner.",
-              "Godtar du statistikk-informasjonskapsler, bruker vi Google Analytics til å telle besøk og se hvilke sider som brukes. Dataene er aggregerte og IP-adressen din anonymiseres. Vi bruker dem ikke til annonsering og deler dem ikke til annonseformål.",
+              analyticsEnabled
+                ? "Godtar du statistikk-informasjonskapsler, bruker vi Google Analytics til å telle besøk og se hvilke sider som brukes. Dataene er aggregerte og IP-adressen din anonymiseres. Vi bruker dem ikke til annonsering og deler dem ikke til annonseformål."
+                : "Siden setter per i dag ingen informasjonskapsler, og ingen besøksmåling er i drift. Slår vi på statistikk senere, lastes ingenting før du har samtykket, og du blir spurt først.",
               "Skriver du til oss gjennom kontaktskjemaet eller på e-post, beholder vi det du skriver så lenge det tar å svare deg og eventuelt håndtere bestillingen det gjelder.",
               "Melder du deg på nyhetsbrevet, lagrer vi e-postadressen din til du melder deg av. Hvert nyhetsbrev har en avmeldingslenke.",
             ],
           },
           {
             h: "Informasjonskapsler",
-            p: [
-              "Nødvendige informasjonskapsler får siden til å virke og er alltid på. De lagrer ingenting som identifiserer deg.",
-              "Statistikk-informasjonskapsler settes bare hvis du samtykker. Ingenting lastes før du har valgt, og du kan endre valget når du vil med knappen på denne siden.",
-              "Valget ditt lagres lokalt i din egen nettleser, ikke på våre servere.",
-            ],
+            p: analyticsEnabled
+              ? [
+                  "Nødvendige informasjonskapsler får siden til å virke og er alltid på. De lagrer ingenting som identifiserer deg.",
+                  "Statistikk-informasjonskapsler settes bare hvis du samtykker. Ingenting lastes før du har valgt, og du kan endre valget når du vil med knappen på denne siden.",
+                  "Valget ditt lagres lokalt i din egen nettleser, ikke på våre servere.",
+                ]
+              : [
+                  "Denne siden setter ingen informasjonskapsler. Ingen sporing, ingen annonsering og ingen besøksmåling.",
+                ],
           },
           {
             h: "Nettbutikken",
@@ -101,7 +118,9 @@ const s =
           {
             h: "Hvem andre som ser dataene",
             p: [
-              "Siden driftes hos Vercel, som behandler tekniske loggdata som del av det å levere sidene. Google Analytics behandler besøksstatistikk kun hvis du har samtykket. E-post når oss gjennom vår vanlige e-postleverandør.",
+              analyticsEnabled
+                ? "Siden driftes hos Vercel, som behandler tekniske loggdata som del av det å levere sidene. Google Analytics behandler besøksstatistikk kun hvis du har samtykket. E-post når oss gjennom vår vanlige e-postleverandør."
+                : "Siden driftes hos Vercel, som behandler tekniske loggdata som del av det å levere sidene. E-post når oss gjennom vår vanlige e-postleverandør.",
               "Vi selger aldri personopplysninger, og vi gir dem ikke videre utover det som trengs for å oppfylle en avtale med deg eller det loven krever.",
             ],
           },
@@ -145,11 +164,15 @@ const s =
         }
       </div>
 
-      <p style="margin-top: var(--sp-6);">
-        <button class="btn btn--ghost" type="button" data-cookie-settings>
-          {s.cookieBtn}
-        </button>
-      </p>
+      {
+        analyticsEnabled && (
+          <p style="margin-top: var(--sp-6);">
+            <button class="btn btn--ghost" type="button" data-cookie-settings>
+              {s.cookieBtn}
+            </button>
+          </p>
+        )
+      }
     </div>
   </section>
 </SiteLayout>

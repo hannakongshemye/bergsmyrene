@@ -67,6 +67,12 @@ const footLegal = [
 
 const here = stripLocale(Astro.url.pathname).replace(/\/$/, "") || "/";
 
+/**
+ * Samtykkeporten vises bare n\u00e5r det faktisk finnes noe \u00e5 samtykke til.
+ * Uten PUBLIC_GA_ID lastes ingen analyse, og siden setter ingen informasjonskapsler.
+ */
+const analyticsEnabled = Boolean(import.meta.env.PUBLIC_GA_ID);
+
 const orgLd = {
   "@context": "https://schema.org",
   "@type": "Farm",
@@ -230,11 +236,15 @@ const orgLd = {
             <h2>{t("footer.legal")}</h2>
             <ul>
               {footLegal.map((n) => <li><a href={L(n.href)}>{n.label}</a></li>)}
-              <li>
-                <button class="foot__cookiebtn" type="button" data-cookie-settings>
-                  {t("footer.cookies")}
-                </button>
-              </li>
+              {
+                analyticsEnabled && (
+                  <li>
+                    <button class="foot__cookiebtn" type="button" data-cookie-settings>
+                      {t("footer.cookies")}
+                    </button>
+                  </li>
+                )
+              }
             </ul>
             <h2 style="margin-top: var(--sp-5);">{t("footer.follow")}</h2>
             <ul>
@@ -254,7 +264,7 @@ const orgLd = {
       </div>
     </footer>
 
-    <CookieConsent />
+    {analyticsEnabled && <CookieConsent />}
 
     <style is:global>
       html.nav-open,
