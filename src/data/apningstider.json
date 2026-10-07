@@ -1,0 +1,43 @@
+{
+  "_note": "Tidene er hentet ordrett fra bergsmyrene.no (februar 2026). Felt merket uavklart maa bekreftes av garden.",
+  "steder": [
+    {
+      "key": "gardsbutikken",
+      "navn": "Gårdsbutikken",
+      "navnEn": "The farm shop",
+      "beskrivelse": "Selvbetjent gårdsbutikk med varer fra gården. Åpen hele døgnet, hele uka, hele året.",
+      "beskrivelseEn": "A self-service farm shop with produce from the farm. Open around the clock, all week, all year.",
+      "tider": [{ "dager": "Mandag til søndag", "dagerEn": "Monday to Sunday", "tid": "00:00–23:59" }],
+      "alltidApen": true
+    },
+    {
+      "key": "kolonialen",
+      "navn": "Kolonialen",
+      "navnEn": "The village store",
+      "beskrivelse": "Landhandel med varer fra andre gårder og økologiske basisvarer. Åpen i sommerhalvåret.",
+      "beskrivelseEn": "A village store with produce from other farms and organic staples. Open through the summer half of the year.",
+      "tider": [{ "dager": "Lørdag", "dagerEn": "Saturday", "tid": "11:00–16:00" }],
+      "merknad": "Stengt for vinteren.",
+      "merknadEn": "Closed for the winter.",
+      "alltidApen": false
+    },
+    {
+      "key": "bakeriet",
+      "navn": "Bakeriet",
+      "navnEn": "The bakery",
+      "beskrivelse": "Surdeigsbrød på økologisk mel. Hvilke dager vi baker varierer med årstiden, om sommeren er det stort sett hver dag.",
+      "beskrivelseEn": "Sourdough bread on organic flour. Which days we bake varies with the season; through the summer it is most days.",
+      "tider": [{ "dager": "Torsdag, fredag og lørdag", "dagerEn": "Thursday, Friday and Saturday", "tid": "" }],
+      "alltidApen": false
+    },
+    {
+      "key": "nettbutikken",
+      "navn": "Nettbutikken",
+      "navnEn": "The online shop",
+      "beskrivelse": "Alltid åpen, men med bestillingsfrist. Levering hver torsdag til et hentested nær deg.",
+      "beskrivelseEn": "Always open, but with an order deadline. Delivery every Thursday to a pickup point near you.",
+      "tider": [{ "dager": "Bestillingsfrist", "dagerEn": "Order deadline", "tid": "Se bestillingssiden" }],
+      "alltidApen": true
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "bergsmyrene",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "engines": { "node": ">=22.12.0" },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "cms": "npx decap-server",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^7.3.6",
+    "@astrojs/sitemap": "^3.6.0"
+  },
+  "devDependencies": {
+    "decap-server": "^3.1.3",
+    "sharp": "^0.34.2"
+  },
+  "allowScripts": { "esbuild": true, "sharp": true }
+}

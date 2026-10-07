@@ -1,0 +1,8 @@
+{
+  "_note": "Bilder hentet fra dagens nettsted. Fotografnavn er lest ut av filnavnene og maa bekreftes.",
+  "bilder": [
+    { "fil": "drone-garden.jpeg", "alt": "Bergsmyrene sett fra lufta: åkerbed, drivhus og tøndet rundt gårdstunet", "altEn": "Bergsmyrene from the air: field beds, greenhouses and the farmyard", "foto": "Oelle" },
+    { "fil": "drivhus-planting.jpeg", "alt": "To personer sprer kompost i et bed inne i drivhuset", "altEn": "Two people spreading compost in a bed inside the greenhouse", "foto": "" },
+    { "fil": "drivhus-salat.jpeg", "alt": "Rader med ung salat i drivhuset", "altEn": "Rows of young lettuce in the greenhouse", "foto": "" }
+  ]
+}

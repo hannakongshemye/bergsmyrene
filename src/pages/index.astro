@@ -1,0 +1,634 @@
+---
+import { Image } from "astro:assets";
+import SiteLayout from "@layouts/SiteLayout.astro";
+import SeasonWheel from "@components/SeasonWheel.astro";
+import Arrow from "@components/Arrow.astro";
+import Notice from "@components/Notice.astro";
+import { getLangFromUrl, localizePath } from "@i18n/ui";
+import { site } from "@data/site";
+import garden from "@data/garden.json";
+
+import heroImg from "@assets/hero-dalen.jpg";
+import vinkeImg from "@assets/vinke.jpg";
+import gulrotImg from "@assets/gulrot-kasser.jpg";
+import kasserImg from "@assets/kasser.jpg";
+import purreImg from "@assets/purre.jpg";
+import kveldImg from "@assets/kveld-i-akeren.jpg";
+import jordImg from "@assets/jord-i-handa.jpg";
+
+const lang = getLangFromUrl(Astro.url);
+const L = (p: string) => localizePath(p, lang);
+
+const s =
+  lang === "en"
+    ? {
+        eyebrow: "Biodynamic since 1981",
+        h1a: "Everything that grows here",
+        h1b: "is eaten nearby",
+        lead: "Bergsmyrene is a biodynamic and organic market garden in Hurum. Everything we grow is sold locally, to families, shops and restaurants.",
+        ctaVisit: "Visit the farm",
+        ctaSeason: "What is in season",
+        waysEyebrow: "Four ways to our food",
+        waysTitle: "Come and get it, or let us bring it",
+        waysLead:
+          "The farm shop is open around the clock. The online shop delivers to a pickup point near you every Thursday. Chefs order through Dagens.",
+        ways: [
+          {
+            title: "The farm shop",
+            text: "Self-service, open all day, every day, all year. Bakery, village store and a pick-your-own flower garden through the summer.",
+            href: "/besok-oss",
+            cta: "Opening hours",
+            img: vinkeImg,
+            alt: "Someone waving outside the red farm buildings at Bergsmyrene",
+          },
+          {
+            title: "The online shop",
+            text: "Order during the week, we harvest Tuesday and Wednesday and deliver Thursday. Free of charge to a pickup point.",
+            href: "/bestill",
+            cta: "How it works",
+            img: gulrotImg,
+            alt: "Freshly pulled carrots being packed into green crates",
+          },
+          {
+            title: "Pickup points",
+            text: "Oslo, Asker and Hurum. Collect your bag where it suits you, within the opening hours of each place.",
+            href: "/bestill#hentesteder",
+            cta: "See the points",
+            img: kasserImg,
+            alt: "Crates of vegetables being loaded onto a trailer",
+          },
+          {
+            title: "Restaurants and shops",
+            text: "Most of what the farm grows goes to kitchens in and around Oslo. Order through Dagens, or talk to us directly.",
+            href: "/proff",
+            cta: "For the trade",
+            img: purreImg,
+            alt: "A person holding a large armful of freshly harvested leeks",
+          },
+        ],
+        seasonEyebrow: "The year turns",
+        seasonTitle: "Nature works in seasons, and so do we",
+        seasonLead:
+          "Every vegetable has its window, and that window is not quite the same from one year to the next. Here is where the farm is right now.",
+        seasonCta: "The whole season",
+        philoEyebrow: "How we farm",
+        philoTitle: "We let the biology do the work",
+        philoBody: [
+          "Our aim is to make genuinely sustainable, healthy and flavourful food. We get there by letting the biological processes steer the work on the farm. In practice that means we only use natural materials to create the conditions our plants need, and that we would rather find those materials here on the farm.",
+          "That is one reason we keep animals. They turn material we cannot use ourselves into first-class plant nutrition, and their manure is a key part of the compost we make. Into the compost goes surplus from production, prunings and much else that would otherwise be waste.",
+        ],
+        quote: "In a natural system there is no waste. Everything is only resources.",
+        philoCta: "More about the farm",
+        whereEyebrow: "Where you will find us",
+        whereTitle: "On other people's tables",
+        whereLead:
+          "Much of what leaves the farm is cooked by someone else. These are some of the kitchens and shops we deliver to.",
+        whereRest: "Restaurants",
+        whereShops: "Shops and co-ops",
+        whereOther: "And elsewhere",
+        partnersEyebrow: "Farms we work with",
+        partnersTitle: "What we do not grow ourselves",
+        partnersLead:
+          "In the village store and the online shop we also sell produce from farms we know and trust.",
+        newsEyebrow: "Newsletter",
+        newsTitle: "Hear it when things come into season",
+        newsLead:
+          "A short note when the online shop opens, when the first tomatoes are ripe, and when there is bread.",
+        newsCta: "Sign up",
+        newsField: "Your email address",
+      }
+    : {
+        eyebrow: "Biodynamisk siden 1981",
+        h1a: "Alt som vokser her,",
+        h1b: "blir spist i nærheten",
+        lead: "Bergsmyrene er en biodynamisk og økologisk grønnsaksgård i Hurum. Alt vi dyrker selges lokalt, til familier, butikker og restauranter.",
+        ctaVisit: "Besøk gården",
+        ctaSeason: "Hva er i sesong",
+        waysEyebrow: "Fire veier til maten",
+        waysTitle: "Kom og hent, eller la oss komme til deg",
+        waysLead:
+          "Gårdsbutikken er åpen hele døgnet. Nettbutikken leverer til et hentested nær deg hver torsdag. Kokker bestiller gjennom Dagens.",
+        ways: [
+          {
+            title: "Gårdsbutikken",
+            text: "Selvbetjent, åpen hele døgnet, hele uka, hele året. Bakeri, kolonial og selvplukk i blomsterhagen om sommeren.",
+            href: "/besok-oss",
+            cta: "Åpningstider",
+            img: vinkeImg,
+            alt: "Noen vinker utenfor de røde gårdsbygningene på Bergsmyrene",
+          },
+          {
+            title: "Nettbutikken",
+            text: "Bestill i løpet av uka. Vi høster tirsdag og onsdag og kjører ut torsdag. Gratis til hentested.",
+            href: "/bestill",
+            cta: "Slik fungerer det",
+            img: gulrotImg,
+            alt: "Nyopptatte gulrøtter pakkes i grønne kasser",
+          },
+          {
+            title: "Hentesteder",
+            text: "Oslo, Asker og Hurum. Hent posen der det passer deg, innenfor åpningstidene til hvert sted.",
+            href: "/bestill#hentesteder",
+            cta: "Se stedene",
+            img: kasserImg,
+            alt: "Kasser med grønnsaker lastes opp på en henger",
+          },
+          {
+            title: "Restauranter og butikker",
+            text: "Det meste gården dyrker går til kjøkken i og rundt Oslo. Bestill gjennom Dagens, eller snakk med oss direkte.",
+            href: "/proff",
+            cta: "For proffkunder",
+            img: purreImg,
+            alt: "En person holder et stort fang med nyhøstet purre",
+          },
+        ],
+        seasonEyebrow: "Året går rundt",
+        seasonTitle: "Naturen jobber i sesonger, og det gjør vi også",
+        seasonLead:
+          "Hver grønnsak har sitt vindu, og vinduet er ikke helt likt fra år til år. Her er hvor gården er akkurat nå.",
+        seasonCta: "Hele sesongen",
+        philoEyebrow: "Slik driver vi",
+        philoTitle: "Vi lar biologien gjøre jobben",
+        philoBody: [
+          "Vårt mål er å lage ekte bærekraftig, sunn og smakfull mat. Dette får vi til ved å la de biologiske prosessene styre arbeidet vi gjør på gården. Det betyr at vi kun bruker naturlige materialer for å skape forholdene plantene våre trenger, og at disse materialene helst skal finnes her på gården.",
+          "Det er en grunn til at vi har dyr. Dyrene omdanner materialer vi ikke selv får brukt, til førsteklasses planternæring, og møkka er en viktig del av komposteringen. I komposten tilsetter vi oversskudd fra produksjonen, planterester fra beskjæring og mye mer av det som ellers ville vært avfall.",
+        ],
+        quote: "I et naturlig system finnes det ikke avfall. Alt er kun ressurser.",
+        philoCta: "Mer om gården",
+        whereEyebrow: "Der du finner oss",
+        whereTitle: "På andres bord",
+        whereLead:
+          "Mye av det som forlater gården blir laget av noen andre. Dette er noen av kjøkkenene og butikkene vi leverer til.",
+        whereRest: "Restauranter",
+        whereShops: "Butikker og kooperativ",
+        whereOther: "Og ellers",
+        partnersEyebrow: "Gårder vi samarbeider med",
+        partnersTitle: "Det vi ikke dyrker selv",
+        partnersLead:
+          "I kolonialen og nettbutikken selger vi også varer fra gårder vi kjenner og stoler på.",
+        newsEyebrow: "Nyhetsbrev",
+        newsTitle: "Hør det når ting kommer i sesong",
+        newsLead:
+          "En kort beskjed når nettbutikken åpner, når de første tomatene er modne, og når det er brød.",
+        newsCta: "Meld deg på",
+        newsField: "E-postadressen din",
+      };
+
+const newsletterAction = site.newsletterAction;
+---
+
+<SiteLayout
+  title={site.name}
+  description={s.lead}
+  transparentNav
+  ogImage="/og/bergsmyrene-og.jpg"
+>
+  <section class="hero">
+    <div class="hero__bg">
+      <Image
+        src={heroImg}
+        alt=""
+        widths={[800, 1400, 2000, 2600]}
+        sizes="100vw"
+        loading="eager"
+        fetchpriority="high"
+        quality={78}
+      />
+    </div>
+    <div class="hero__scrim" aria-hidden="true"></div>
+
+    <div class="wrap hero__inner">
+      <p class="hero__eyebrow">{s.eyebrow}</p>
+      <h1 class="hero__title">
+        <span>{s.h1a}</span>
+        <span>{s.h1b}</span>
+      </h1>
+      <div class="hero__foot">
+        <p class="hero__lead">{s.lead}</p>
+        <div class="hero__cta">
+          <a class="btn" href={L("/besok-oss")}>
+            {s.ctaVisit}<Arrow class="btn__arrow" />
+          </a>
+          <a class="btn btn--ghost" href={L("/sesongen")}>{s.ctaSeason}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Notice />
+
+  <section class="section" id="veier">
+    <div class="wrap">
+      <div class="sechead" data-reveal>
+        <span class="eyebrow">{s.waysEyebrow}</span>
+        <span class="sechead__rule"></span>
+      </div>
+      <div class="split split--wide-right" style="margin-bottom: var(--sp-7);">
+        <h2 data-reveal>{s.waysTitle}</h2>
+        <p class="lead" data-reveal data-reveal-delay="1">{s.waysLead}</p>
+      </div>
+
+      <div class="grid grid--4">
+        {
+          s.ways.map((w, i) => (
+            <a
+              class="card"
+              href={L(w.href)}
+              data-reveal
+              data-reveal-delay={String(Math.min(i + 1, 4))}
+            >
+              <div class="card__media">
+                <Image
+                  src={w.img}
+                  alt={w.alt}
+                  widths={[320, 560, 840]}
+                  sizes="(max-width: 700px) 92vw, 22vw"
+                  quality={76}
+                />
+              </div>
+              <h3 class="card__title">{w.title}</h3>
+              <p class="card__text">{w.text}</p>
+              <span class="tlink">
+                {w.cta}
+                <Arrow />
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="sesong" style="background: var(--surface);">
+    <div class="wrap">
+      <div class="sechead" data-reveal>
+        <span class="eyebrow">{s.seasonEyebrow}</span>
+        <span class="sechead__rule"></span>
+      </div>
+      <div class="split split--wide-right" style="margin-bottom: var(--sp-8);">
+        <h2 data-reveal>{s.seasonTitle}</h2>
+        <p class="lead" data-reveal data-reveal-delay="1">{s.seasonLead}</p>
+      </div>
+
+      <div data-reveal>
+        <SeasonWheel />
+      </div>
+
+      <p style="margin-top: var(--sp-7);" data-reveal>
+        <a class="btn btn--ghost" href={L("/sesongen")}>
+          {s.seasonCta}<Arrow class="btn__arrow" />
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="split" style="gap: var(--sp-8);">
+        <figure class="figure" data-reveal>
+          <Image
+            src={jordImg}
+            alt={lang === "en"
+              ? "A close-up of a farmer holding dark, crumbly soil in one hand"
+              : "Nærbilde av en bønde som holder mørk, smuldrete jord i hånda"}
+            widths={[560, 900, 1300]}
+            sizes="(max-width: 860px) 92vw, 44vw"
+            quality={78}
+          />
+        </figure>
+
+        <div data-reveal data-reveal-delay="1">
+          <p class="eyebrow">{s.philoEyebrow}</p>
+          <h2 style="margin-block: var(--sp-3) var(--sp-5);">{s.philoTitle}</h2>
+          {s.philoBody.map((p) => <p style="color: var(--fg-soft); max-width: 46ch; margin-bottom: var(--sp-4);">{p}</p>)}
+          <a class="tlink" href={L("/garden")}>
+            {s.philoCta}<Arrow />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band quoteband" data-dark>
+    <div class="quoteband__bg" aria-hidden="true">
+      <Image
+        src={kveldImg}
+        alt=""
+        widths={[900, 1500, 2200]}
+        sizes="100vw"
+        quality={70}
+      />
+    </div>
+    <div class="wrap quoteband__inner">
+      <p class="eyebrow" data-reveal>{site.tagline}</p>
+      <blockquote class="band__quote" data-reveal data-reveal-delay="1">
+        {s.quote}
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="sechead" data-reveal>
+        <span class="eyebrow">{s.whereEyebrow}</span>
+        <span class="sechead__rule"></span>
+      </div>
+      <div class="split split--wide-right" style="margin-bottom: var(--sp-7);">
+        <h2 data-reveal>{s.whereTitle}</h2>
+        <p class="lead" data-reveal data-reveal-delay="1">{s.whereLead}</p>
+      </div>
+
+      <div class="grid grid--3">
+        <div data-reveal>
+          <h3 class="minih">{s.whereRest}</h3>
+          <ul class="namelist">
+            {garden.restauranter.map((r) => <li>{r}</li>)}
+          </ul>
+        </div>
+        <div data-reveal data-reveal-delay="1">
+          <h3 class="minih">{s.whereShops}</h3>
+          <ul class="namelist">
+            {garden.butikker.map((r) => <li>{r}</li>)}
+          </ul>
+        </div>
+        <div data-reveal data-reveal-delay="2">
+          <h3 class="minih">{s.whereOther}</h3>
+          <ul class="namelist">
+            {garden.andre.map((r) => <li>{r}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" style="background: var(--surface);">
+    <div class="wrap">
+      <div class="sechead" data-reveal>
+        <span class="eyebrow">{s.partnersEyebrow}</span>
+        <span class="sechead__rule"></span>
+      </div>
+      <div class="split split--wide-right" style="margin-bottom: var(--sp-6);">
+        <h2 data-reveal>{s.partnersTitle}</h2>
+        <p class="lead" data-reveal data-reveal-delay="1">{s.partnersLead}</p>
+      </div>
+      <div class="grid grid--3">
+        {
+          garden.samarbeidsgarder.map((g, i) => (
+            <div class="panel" data-reveal data-reveal-delay={String(i + 1)}>
+              <h3 class="card__title">{g.navn}</h3>
+              <p class="eyebrow" style="margin-block: var(--sp-2) var(--sp-3);">
+                {g.sted}
+              </p>
+              <p class="card__text">{lang === "en" ? g.tekstEn : g.tekst}</p>
+              {g.url && (
+                <p style="margin-top: var(--sp-4);">
+                  <a class="tlink" href={g.url} rel="noopener" target="_blank">
+                    {g.url.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                    <Arrow />
+                  </a>
+                </p>
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section" data-dark>
+    <div class="wrap wrap--narrow" style="text-align: center;">
+      <p class="eyebrow" data-reveal>{s.newsEyebrow}</p>
+      <h2 style="margin-block: var(--sp-3) var(--sp-4);" data-reveal data-reveal-delay="1">
+        {s.newsTitle}
+      </h2>
+      <p class="lead" style="margin-inline: auto;" data-reveal data-reveal-delay="2">
+        {s.newsLead}
+      </p>
+
+      <form
+        class="newsform"
+        data-reveal
+        data-reveal-delay="3"
+        method="POST"
+        action={newsletterAction || `mailto:${site.email}`}
+        {...(newsletterAction ? {} : { enctype: "text/plain" })}
+      >
+        <div class="field">
+          <label class="visually-hidden" for="nl-email">{s.newsField}</label>
+          <input
+            id="nl-email"
+            name="email"
+            type="email"
+            required
+            autocomplete="email"
+            placeholder={s.newsField}
+          />
+        </div>
+        <button class="btn btn--ember" type="submit">
+          {s.newsCta}<Arrow class="btn__arrow" />
+        </button>
+      </form>
+    </div>
+  </section>
+</SiteLayout>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-top: calc(var(--nav-h) + var(--sp-7));
+    padding-bottom: var(--sp-8);
+    overflow: clip;
+  }
+
+  .hero__bg,
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero__bg :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero__scrim {
+    z-index: 1;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in oklab, var(--ink) 48%, transparent) 0%,
+        transparent 26%,
+        transparent 40%,
+        color-mix(in oklab, var(--ink) 72%, transparent) 100%
+      ),
+      linear-gradient(
+        100deg,
+        color-mix(in oklab, var(--ink) 42%, transparent) 0%,
+        transparent 62%
+      );
+  }
+
+  .hero__inner {
+    position: relative;
+    z-index: 2;
+    color: var(--paper);
+  }
+
+  .hero__eyebrow {
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: color-mix(in oklab, var(--paper) 86%, transparent);
+    margin-bottom: var(--sp-4);
+  }
+
+  .hero__title {
+    font-size: var(--fs-4xl);
+    font-weight: 380;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    font-variation-settings: "SOFT" 24, "WONK" 1;
+  }
+
+  .hero__title span {
+    display: block;
+  }
+
+  .hero__foot {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--sp-6);
+    align-items: end;
+    margin-top: var(--sp-6);
+  }
+
+  @media (max-width: 760px) {
+    .hero__foot {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .hero__lead {
+    max-width: 44ch;
+    font-size: var(--fs-md);
+    color: color-mix(in oklab, var(--paper) 88%, transparent);
+  }
+
+  .hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+  }
+
+  .hero__cta .btn {
+    background: var(--paper);
+    color: var(--ink);
+    border-color: var(--paper);
+  }
+
+  .hero__cta .btn:hover {
+    background: var(--ember);
+    border-color: var(--ember);
+    color: var(--paper);
+  }
+
+  .hero__cta .btn--ghost {
+    background: transparent;
+    color: var(--paper);
+    border-color: color-mix(in oklab, var(--paper) 48%, transparent);
+  }
+
+  .hero__cta .btn--ghost:hover {
+    background: var(--paper);
+    color: var(--ink);
+    border-color: var(--paper);
+  }
+
+  .figure {
+    margin: 0;
+    border-radius: var(--r-md);
+    overflow: hidden;
+    background: var(--surface-2);
+    aspect-ratio: 4 / 5;
+  }
+
+  .figure :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .quoteband {
+    position: relative;
+    overflow: clip;
+  }
+
+  .quoteband__bg {
+    position: absolute;
+    inset: 0;
+  }
+
+  .quoteband__bg :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.4;
+  }
+
+  .quoteband__inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .quoteband blockquote {
+    margin: var(--sp-4) 0 0;
+    max-width: 24ch;
+  }
+
+  .minih {
+    font-family: var(--ff-sans);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: var(--tr-meta);
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    padding-bottom: var(--sp-3);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .namelist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .namelist li {
+    font-family: var(--ff-display);
+    font-size: var(--fs-md);
+    padding-block: var(--sp-3);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .newsform {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+    max-width: 30rem;
+    margin: var(--sp-6) auto 0;
+  }
+
+  .newsform .field {
+    flex: 1 1 15rem;
+  }
+
+  .newsform .btn {
+    flex: 0 0 auto;
+  }
+</style>

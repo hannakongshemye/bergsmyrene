@@ -1,0 +1,53 @@
+{
+  "_note": "Gardsaret: fire faser. Hoysesongen juli-september er gardens egen formulering. Avlingstabellen under er veiledende og skal bekreftes av garden.",
+  "highSeason": { "from": 7, "to": 9 },
+  "phases": [
+    {
+      "key": "hvile",
+      "months": [12, 1, 2, 3],
+      "title": "Lager og hvile",
+      "lead": "Jorda hviler under snøen. Vi lever av lageret, steller dyra, lager kompost og planlegger neste sesong.",
+      "intensity": 1
+    },
+    {
+      "key": "oppal",
+      "months": [4, 5, 6],
+      "title": "Oppal og planting",
+      "lead": "Småplantene står tætt i drivhuset. Kompost kjøres ut, bedene gjøres klare, og alt som skal vokse settes i jorda.",
+      "intensity": 2
+    },
+    {
+      "key": "hoysesong",
+      "months": [7, 8, 9],
+      "title": "Høysesong",
+      "lead": "Nå har vi næsten alt man kan ønske seg av forskjellige grønnsaker, pluss noen man ikke visste at man ønsket seg.",
+      "intensity": 3
+    },
+    {
+      "key": "lagring",
+      "months": [10, 11],
+      "title": "Innhøsting og lagring",
+      "lead": "Røttene tas opp og legges på lager. Kompostrankene settes opp. Det siste fra åkeren kommer inn før frosten tar tak.",
+      "intensity": 2
+    }
+  ],
+  "cropsAreIndicative": true,
+  "crops": [
+    { "name": "Salat og bladgrønt", "group": "blad", "months": [5, 6, 7, 8, 9, 10] },
+    { "name": "Spinat og mangold", "group": "blad", "months": [5, 6, 7, 8, 9, 10] },
+    { "name": "Grønnkål", "group": "blad", "months": [7, 8, 9, 10, 11, 12] },
+    { "name": "Urter", "group": "urter", "months": [5, 6, 7, 8, 9, 10] },
+    { "name": "Tomat", "group": "drivhus", "months": [7, 8, 9, 10] },
+    { "name": "Agurk", "group": "drivhus", "months": [6, 7, 8, 9] },
+    { "name": "Chili og paprika", "group": "drivhus", "months": [8, 9, 10] },
+    { "name": "Gulrot", "group": "rot", "months": [7, 8, 9, 10, 11, 12, 1, 2] },
+    { "name": "Rødbet", "group": "rot", "months": [7, 8, 9, 10, 11, 12, 1, 2] },
+    { "name": "Knutekål og reddik", "group": "rot", "months": [6, 7, 8, 9, 10] },
+    { "name": "Potet", "group": "rot", "months": [8, 9, 10, 11, 12, 1, 2, 3] },
+    { "name": "Løk og hvitløk", "group": "rot", "months": [8, 9, 10, 11, 12, 1, 2] },
+    { "name": "Squash og gresskar", "group": "annet", "months": [8, 9, 10] },
+    { "name": "Bær", "group": "annet", "months": [7, 8, 9] },
+    { "name": "Ville vekster", "group": "annet", "months": [4, 5, 6, 7, 8, 9] },
+    { "name": "Mel fra Alm Østre", "group": "annet", "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] }
+  ]
+}

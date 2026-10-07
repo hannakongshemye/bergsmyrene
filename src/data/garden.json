@@ -1,0 +1,38 @@
+{
+  "_note": "All brodtekst er transkribert ordrett fra bergsmyrene.no/pages/om-oss.",
+  "team": [
+    { "navn": "Severin", "rolle": "Gårdsdrift og proffsalg", "rolleEn": "Farming and trade sales" },
+    { "navn": "Emma", "rolle": "Gårdsbutikk, bakeri, frivillige, woofere", "rolleEn": "Farm shop, bakery, volunteers, WWOOFers" },
+    { "navn": "Finn", "rolle": "Transport og altmuligmann", "rolleEn": "Transport and all-rounder" },
+    { "navn": "Evelyn", "rolle": "Hester og diverse", "rolleEn": "Horses and everything else" }
+  ],
+  "samarbeidsgarder": [
+    {
+      "navn": "Alm Østre",
+      "sted": "Stange",
+      "tekst": "Biodynamisk gård på Stange.",
+      "tekstEn": "A biodynamic farm at Stange.",
+      "url": "https://almostre.no/"
+    },
+    {
+      "navn": "Rosnes Gårdsdrift",
+      "sted": "Sande",
+      "tekst": "Rosnes gårdsdrift ligger i Sande og driver med økologisk grønnsaksproduksjon.",
+      "tekstEn": "Rosnes gårdsdrift lies at Sande and grows organic vegetables.",
+      "url": "https://rosnesgardsdrift.no/"
+    },
+    {
+      "navn": "Søre Hosar",
+      "sted": "Skjåk",
+      "tekst": "Søre Hosar ligger i Skjåk og drives av Eivind Øvrelid og Oddveig Hosar. Grønnsakene de dyrker så langt over havet får god smak, og de lar dem også stå ute til det har kommet et par frostnætter. Det utvikler ekstra sødme.",
+      "tekstEn": "Søre Hosar lies in Skjåk and is run by Eivind Øvrelid and Oddveig Hosar. The vegetables they grow that far above sea level take on a good flavour, and they leave them out until a couple of frosty nights have passed, which develops extra sweetness.",
+      "url": ""
+    }
+  ],
+  "restauranter": [
+    "Maaemo", "Theatercafeen", "Arakataka", "Kolonihagen Frogner", "LutLaget",
+    "Happy Foods", "Pillefyken", "Revier", "Tranen", "Hot Shop", "Kontrast"
+  ],
+  "butikker": ["Røtter St. Hanshaugen", "Havens", "Oslo Kooperativ"],
+  "andre": ["Øyafestivalen", "Villbrygg"]
+}

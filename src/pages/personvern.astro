@@ -1,0 +1,174 @@
+---
+import SiteLayout from "@layouts/SiteLayout.astro";
+import { getLangFromUrl, localizePath } from "@i18n/ui";
+import { site, addressLine } from "@data/site";
+
+const lang = getLangFromUrl(Astro.url);
+const L = (p: string) => localizePath(p, lang);
+
+const updated = "2026-10-07";
+
+const s =
+  lang === "en"
+    ? {
+        eyebrow: "Privacy",
+        title: "Privacy policy",
+        lead: "What we collect on bergsmyrene.no, why, and what you can ask us to do about it.",
+        updatedLabel: "Last updated",
+        cookieBtn: "Change your cookie choice",
+        sections: [
+          {
+            h: "Who is responsible",
+            p: [
+              `${site.legalName} (org. no. ${site.orgnr}), ${addressLine}, is the data controller for personal data processed through this website. You can reach us at ${site.email} or ${site.phoneDisplay}.`,
+            ],
+          },
+          {
+            h: "What this site collects",
+            p: [
+              "This website is a static site. It has no user accounts, no comment field and no tracking of individuals.",
+              "If you accept statistics cookies, we use Google Analytics to count visits and see which pages are used. The data is aggregated and your IP address is anonymised. We do not use it for advertising and we do not share it for advertising purposes.",
+              "If you write to us through the contact form or by email, we keep what you write for as long as it takes to answer you and to handle any order it relates to.",
+              "If you sign up for the newsletter, we store your email address until you unsubscribe. Every newsletter carries an unsubscribe link.",
+            ],
+          },
+          {
+            h: "Cookies",
+            p: [
+              "Necessary cookies make the site work and are always on. They store nothing that identifies you.",
+              "Statistics cookies are only set if you give consent. Nothing is loaded before you choose, and you can change your choice at any time with the button on this page.",
+              "Your choice is stored locally in your own browser, not on our servers.",
+            ],
+          },
+          {
+            h: "The online shop",
+            p: [
+              "Orders and payment are handled in the online shop, which runs on a separate platform with its own privacy policy and its own terms. When you follow the link to the shop, you leave this website.",
+            ],
+          },
+          {
+            h: "Who else sees the data",
+            p: [
+              "The site is hosted by Vercel, which processes technical log data as part of serving the pages. Google Analytics processes visit statistics only if you consented. Email reaches us through our ordinary email provider.",
+              "We never sell personal data, and we never pass it on except where it is needed to fulfil an agreement with you or where the law requires it.",
+            ],
+          },
+          {
+            h: "Your rights",
+            p: [
+              "You can ask what we hold about you, ask for it to be corrected or deleted, and withdraw consent at any time. Write to us and we will deal with it.",
+              "If you think we are handling your data wrongly, you can complain to the Norwegian Data Protection Authority, Datatilsynet.",
+            ],
+          },
+        ],
+      }
+    : {
+        eyebrow: "Personvern",
+        title: "Personvernerklæring",
+        lead: "Hva vi samler inn på bergsmyrene.no, hvorfor, og hva du kan be oss gjøre med det.",
+        updatedLabel: "Sist oppdatert",
+        cookieBtn: "Endre valget ditt for informasjonskapsler",
+        sections: [
+          {
+            h: "Hvem som er ansvarlig",
+            p: [
+              `${site.legalName} (org.nr. ${site.orgnr}), ${addressLine}, er behandlingsansvarlig for personopplysninger som behandles gjennom dette nettstedet. Du når oss på ${site.email} eller ${site.phoneDisplay}.`,
+            ],
+          },
+          {
+            h: "Hva denne siden samler inn",
+            p: [
+              "Dette nettstedet er en statisk side. Den har ingen brukerkontoer, ingen kommentarfelt og ingen sporing av enkeltpersoner.",
+              "Godtar du statistikk-informasjonskapsler, bruker vi Google Analytics til å telle besøk og se hvilke sider som brukes. Dataene er aggregerte og IP-adressen din anonymiseres. Vi bruker dem ikke til annonsering og deler dem ikke til annonseformål.",
+              "Skriver du til oss gjennom kontaktskjemaet eller på e-post, beholder vi det du skriver så lenge det tar å svare deg og eventuelt håndtere bestillingen det gjelder.",
+              "Melder du deg på nyhetsbrevet, lagrer vi e-postadressen din til du melder deg av. Hvert nyhetsbrev har en avmeldingslenke.",
+            ],
+          },
+          {
+            h: "Informasjonskapsler",
+            p: [
+              "Nødvendige informasjonskapsler får siden til å virke og er alltid på. De lagrer ingenting som identifiserer deg.",
+              "Statistikk-informasjonskapsler settes bare hvis du samtykker. Ingenting lastes før du har valgt, og du kan endre valget når du vil med knappen på denne siden.",
+              "Valget ditt lagres lokalt i din egen nettleser, ikke på våre servere.",
+            ],
+          },
+          {
+            h: "Nettbutikken",
+            p: [
+              "Bestilling og betaling håndteres i nettbutikken, som ligger på en egen plattform med egen personvernerklæring og egne vilkår. Når du følger lenken til butikken, forlater du dette nettstedet.",
+            ],
+          },
+          {
+            h: "Hvem andre som ser dataene",
+            p: [
+              "Siden driftes hos Vercel, som behandler tekniske loggdata som del av det å levere sidene. Google Analytics behandler besøksstatistikk kun hvis du har samtykket. E-post når oss gjennom vår vanlige e-postleverandør.",
+              "Vi selger aldri personopplysninger, og vi gir dem ikke videre utover det som trengs for å oppfylle en avtale med deg eller det loven krever.",
+            ],
+          },
+          {
+            h: "Rettighetene dine",
+            p: [
+              "Du kan be om innsyn i hva vi har om deg, be om retting eller sletting, og trekke tilbake samtykke når som helst. Skriv til oss, så ordner vi det.",
+              "Mener du at vi behandler opplysningene dine feil, kan du klage til Datatilsynet.",
+            ],
+          },
+        ],
+      };
+---
+
+<SiteLayout title={s.title} description={s.lead}>
+  <section class="section section--tight">
+    <div class="wrap wrap--narrow">
+      <p class="eyebrow" data-reveal>{s.eyebrow}</p>
+      <h1 style="margin-block: var(--sp-3) var(--sp-5);" data-reveal data-reveal-delay="1">
+        {s.title}
+      </h1>
+      <p class="lead" data-reveal data-reveal-delay="2">{s.lead}</p>
+      <p class="formnote" style="margin-top: var(--sp-4);">
+        {s.updatedLabel}: <time datetime={updated}>{updated}</time>
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap wrap--narrow">
+      <div class="legal">
+        {
+          s.sections.map((sec) => (
+            <section>
+              <h2>{sec.h}</h2>
+              {sec.p.map((p) => (
+                <p>{p}</p>
+              ))}
+            </section>
+          ))
+        }
+      </div>
+
+      <p style="margin-top: var(--sp-6);">
+        <button class="btn btn--ghost" type="button" data-cookie-settings>
+          {s.cookieBtn}
+        </button>
+      </p>
+    </div>
+  </section>
+</SiteLayout>
+
+<style>
+  .legal section {
+    margin-bottom: var(--sp-7);
+  }
+
+  .legal h2 {
+    font-size: var(--fs-lg);
+    padding-bottom: var(--sp-3);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: var(--sp-4);
+  }
+
+  .legal p {
+    max-width: var(--measure);
+    color: var(--fg-soft);
+    margin-bottom: var(--sp-3);
+  }
+</style>

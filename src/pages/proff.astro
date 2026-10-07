@@ -1,0 +1,226 @@
+---
+import { Image } from "astro:assets";
+import SiteLayout from "@layouts/SiteLayout.astro";
+import PageHero from "@components/PageHero.astro";
+import Arrow from "@components/Arrow.astro";
+import { getLangFromUrl, localizePath } from "@i18n/ui";
+import { site } from "@data/site";
+import garden from "@data/garden.json";
+
+import heroImg from "@assets/purre.jpg";
+import kveldImg from "@assets/kveld-i-akeren.jpg";
+
+const lang = getLangFromUrl(Astro.url);
+const L = (p: string) => localizePath(p, lang);
+
+const s =
+  lang === "en"
+    ? {
+        eyebrow: "For the trade",
+        title: "Ordering for professionals",
+        lead: "Most of the sales of the farm are locally to restaurants and shops in the Oslo area. If you order for a restaurant, shop, hotel, canteen or similar, use the link below to get to our B2B ordering platform.",
+        heroAlt: "A person holding a large armful of freshly harvested leeks",
+        dagensTitle: "About Dagens",
+        dagensBody: [
+          "Dagens is a direct sales platform that facilitates direct sale between producers and chefs and other businesses.",
+          "When using Dagens, keep in mind that it is still a direct trade with us. So if you have any questions, contact us directly.",
+        ],
+        dagensCta: "Order through Dagens",
+        contactTitle: "Talk to us",
+        contactBody:
+          "Phone: if we do not pick up, write an SMS. Email works too, and is often the fastest way to a clear answer.",
+        deliveryTitle: "Deliveries",
+        delivery: [
+          { d: "Tuesdays", t: "Dagens distribution" },
+          { d: "Thursdays", t: "We deliver in person" },
+          { d: "Fridays", t: "If you prefer Friday to Thursday, contact us and we will send it with Dagens distribution" },
+        ],
+        seasonTitle: "Seasonality",
+        season: [
+          "Remember that nature works in seasons, and so do we. All of our products are a product of natural processes and will not be available all year round. Every vegetable has its window, and that window might not be exactly the same from year to year.",
+          "When working with local producers like us, you will have to adjust to those windows. We do our best to have things available for as long as possible. But sometimes the season starts or stops suddenly. That is the challenge of working with nature, but also what makes it so much fun.",
+        ],
+        seasonCta: "See what is in season",
+        kitchensTitle: "Some of the kitchens we deliver to",
+        kitchensRest: "Restaurants",
+        kitchensShops: "Shops and co-ops",
+        kitchensOther: "And elsewhere",
+        kveldAlt: "A farmer silhouetted against the evening sky while harvesting",
+      }
+    : {
+        eyebrow: "For proffkunder",
+        title: "Bestilling for restauranter og butikker",
+        lead: "Det meste av salget fra gården går lokalt til restauranter og butikker i Osloområdet. Bestiller du for restaurant, butikk, hotell, kantine eller lignende, bruker du lenken under for å komme til bestillingsplattformen vår.",
+        heroAlt: "En person holder et stort fang med nyhøstet purre",
+        dagensTitle: "Om Dagens",
+        dagensBody: [
+          "Dagens er en direktesalgsplattform som gjør det enkelt å handle direkte mellom produsent og kokk eller annen virksomhet.",
+          "Når du bruker Dagens, husk at det fremdeles er en direkte handel med oss. Så har du spørsmål, ta kontakt med oss direkte.",
+        ],
+        dagensCta: "Bestill gjennom Dagens",
+        contactTitle: "Snakk med oss",
+        contactBody:
+          "Ringer du og vi ikke tar den, send en SMS. E-post fungerer også, og er ofte raskeste vei til et tydelig svar.",
+        deliveryTitle: "Leveringer",
+        delivery: [
+          { d: "Tirsdag", t: "Distribusjon via Dagens" },
+          { d: "Torsdag", t: "Vi leverer selv" },
+          { d: "Fredag", t: "Foretrekker du fredag framfor torsdag, ta kontakt, så sender vi med Dagens-distribusjon" },
+        ],
+        seasonTitle: "Sesong",
+        season: [
+          "Husk at naturen jobber i sesonger, og det gjør vi også. Alle varene våre er et resultat av naturlige prosesser og finnes ikke hele året. Hver grønnsak har sitt vindu, og det vinduet er ikke nødvendigvis helt likt fra år til år.",
+          "Når du jobber med lokale produsenter som oss, må du tilpasse deg de vinduene. Vi gjør vårt beste for å ha ting tilgjengelig så lenge som mulig. Men noen ganger starter eller stopper sesongen brått. Det er utfordringen med å jobbe med naturen, men også det som gjør det så moro.",
+        ],
+        seasonCta: "Se hva som er i sesong",
+        kitchensTitle: "Noen av kjøkkenene vi leverer til",
+        kitchensRest: "Restauranter",
+        kitchensShops: "Butikker og kooperativ",
+        kitchensOther: "Og ellers",
+        kveldAlt: "En bønde i silhuett mot kveldshimmelen under innhøsting",
+      };
+---
+
+<SiteLayout title={s.eyebrow} description={s.lead}>
+  <PageHero
+    eyebrow={s.eyebrow}
+    title={s.title}
+    lead={s.lead}
+    image={heroImg}
+    imageAlt={s.heroAlt}
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="split">
+        <div data-reveal>
+          <h2 style="margin-bottom: var(--sp-5);">{s.dagensTitle}</h2>
+          <div class="prose">
+            {s.dagensBody.map((p) => <p>{p}</p>)}
+          </div>
+          <p style="margin-top: var(--sp-5);">
+            <a class="btn" href={site.proUrl} rel="noopener" target="_blank">
+              {s.dagensCta}<Arrow class="btn__arrow" />
+            </a>
+          </p>
+        </div>
+
+        <div class="panel" data-reveal data-reveal-delay="1">
+          <h3 class="card__title">{s.contactTitle}</h3>
+          <p class="card__text" style="margin-top: var(--sp-3);">{s.contactBody}</p>
+          <dl class="deflist" style="margin-top: var(--sp-4);">
+            <div>
+              <dt>{lang === "en" ? "Phone" : "Telefon"}</dt>
+              <dd><a href={`tel:${site.phone}`}>{site.phoneDisplay}</a></dd>
+            </div>
+            <div>
+              <dt>{lang === "en" ? "Email" : "E-post"}</dt>
+              <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background: var(--surface);">
+    <div class="wrap">
+      <h2 style="margin-bottom: var(--sp-6);" data-reveal>{s.deliveryTitle}</h2>
+      <dl class="deflist deflist--wide" data-reveal>
+        {
+          s.delivery.map((d) => (
+            <div>
+              <dt style="font-family: var(--ff-display); font-size: var(--fs-lg);">{d.d}</dt>
+              <dd style="text-align: left; max-width: 46ch;">{d.t}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="section band" data-dark style="position: relative; overflow: clip;">
+    <div class="bandbg" aria-hidden="true">
+      <Image
+        src={kveldImg}
+        alt=""
+        widths={[900, 1500, 2200]}
+        sizes="100vw"
+        quality={70}
+      />
+    </div>
+    <div class="wrap" style="position: relative; z-index: 1;">
+      <div class="split split--wide-right">
+        <h2 data-reveal>{s.seasonTitle}</h2>
+        <div data-reveal data-reveal-delay="1">
+          {s.season.map((p) => <p class="lead" style="margin-bottom: var(--sp-4);">{p}</p>)}
+          <a class="btn btn--ghost" href={L("/sesongen")}>
+            {s.seasonCta}<Arrow class="btn__arrow" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 style="margin-bottom: var(--sp-6);" data-reveal>{s.kitchensTitle}</h2>
+      <div class="grid grid--3">
+        <div data-reveal>
+          <h3 class="minih">{s.kitchensRest}</h3>
+          <ul class="namelist">{garden.restauranter.map((r) => <li>{r}</li>)}</ul>
+        </div>
+        <div data-reveal data-reveal-delay="1">
+          <h3 class="minih">{s.kitchensShops}</h3>
+          <ul class="namelist">{garden.butikker.map((r) => <li>{r}</li>)}</ul>
+        </div>
+        <div data-reveal data-reveal-delay="2">
+          <h3 class="minih">{s.kitchensOther}</h3>
+          <ul class="namelist">{garden.andre.map((r) => <li>{r}</li>)}</ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</SiteLayout>
+
+<style>
+  .bandbg {
+    position: absolute;
+    inset: 0;
+  }
+
+  .bandbg :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.32;
+  }
+
+  .deflist--wide > div {
+    align-items: baseline;
+  }
+
+  .minih {
+    font-family: var(--ff-sans);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: var(--tr-meta);
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    padding-bottom: var(--sp-3);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .namelist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .namelist li {
+    font-family: var(--ff-display);
+    font-size: var(--fs-md);
+    padding-block: var(--sp-3);
+    border-bottom: 1px solid var(--rule);
+  }
+</style>

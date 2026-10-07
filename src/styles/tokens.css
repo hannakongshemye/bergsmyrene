@@ -1,0 +1,87 @@
+/* =========================================================================
+   Bergsmyrene - designtokens
+   Alt bygges av fire konstanter + color-mix. Ikke legg til løse hex-verdier.
+   ========================================================================= */
+
+:root {
+  /* --- De fire konstantene ------------------------------------------- */
+  --ink: #161a12; /* nær-svart med olivenstikk: jord i skygge */
+  --paper: #f0f1e9; /* kalkhvit med grønnstikk: undersiden av et blad */
+  --ember: #a8402a; /* falød låvemaling - eneste aksentfarge */
+  --leaf: #456b3c; /* klorofyll - kun til sesongdiagrammet */
+
+  /* --- Avledede flater ----------------------------------------------- */
+  --surface: color-mix(in oklab, var(--paper) 96%, var(--ink));
+  --surface-2: color-mix(in oklab, var(--paper) 91%, var(--ink));
+  --ink-deep: color-mix(in oklab, var(--ink) 88%, var(--leaf));
+  --rule: color-mix(in oklab, var(--ink) 15%, transparent);
+  --rule-strong: color-mix(in oklab, var(--ink) 28%, transparent);
+
+  /* --- Tekstfarger ---------------------------------------------------- */
+  --fg: var(--ink);
+  --fg-soft: color-mix(in oklab, var(--ink) 68%, var(--paper));
+  --fg-faint: color-mix(in oklab, var(--ink) 48%, var(--paper));
+  --on-dark: color-mix(in oklab, var(--paper) 94%, var(--leaf));
+  --on-dark-soft: color-mix(in oklab, var(--paper) 66%, var(--ink-deep));
+
+  /* --- Sesongskala (kun diagram) -------------------------------------- */
+  --s-hvile: color-mix(in oklab, var(--ink) 26%, var(--paper));
+  --s-spire: color-mix(in oklab, var(--leaf) 38%, var(--paper));
+  --s-vekst: color-mix(in oklab, var(--leaf) 72%, var(--paper));
+  --s-host: var(--ember);
+
+  /* --- Typografi ------------------------------------------------------ */
+  --ff-display: var(--font-display), "Iowan Old Style", Georgia, serif;
+  --ff-sans: var(--font-sans), "Helvetica Neue", Arial, sans-serif;
+
+  --fs-xs: clamp(0.72rem, 0.70rem + 0.10vw, 0.78rem);
+  --fs-sm: clamp(0.84rem, 0.81rem + 0.14vw, 0.92rem);
+  --fs-base: clamp(1rem, 0.97rem + 0.17vw, 1.1rem);
+  --fs-md: clamp(1.12rem, 1.06rem + 0.30vw, 1.3rem);
+  --fs-lg: clamp(1.32rem, 1.19rem + 0.62vw, 1.72rem);
+  --fs-xl: clamp(1.64rem, 1.36rem + 1.35vw, 2.5rem);
+  --fs-2xl: clamp(2.1rem, 1.58rem + 2.48vw, 3.6rem);
+  --fs-3xl: clamp(2.7rem, 1.72rem + 4.68vw, 5.2rem);
+  --fs-4xl: clamp(3.1rem, 1.35rem + 8.35vw, 7.4rem);
+
+  --lh-tight: 1.04;
+  --lh-snug: 1.18;
+  --lh-body: 1.62;
+  --tr-display: -0.022em;
+  --tr-meta: 0.14em;
+  --measure: 64ch;
+  --measure-narrow: 46ch;
+
+  /* --- Rom ------------------------------------------------------------ */
+  --sp-1: clamp(0.25rem, 0.24rem + 0.05vw, 0.3rem);
+  --sp-2: clamp(0.5rem, 0.47rem + 0.14vw, 0.6rem);
+  --sp-3: clamp(0.75rem, 0.71rem + 0.21vw, 0.9rem);
+  --sp-4: clamp(1rem, 0.94rem + 0.28vw, 1.2rem);
+  --sp-5: clamp(1.5rem, 1.41rem + 0.42vw, 1.8rem);
+  --sp-6: clamp(2rem, 1.81rem + 0.93vw, 2.6rem);
+  --sp-7: clamp(2.75rem, 2.33rem + 2.08vw, 4rem);
+  --sp-8: clamp(3.5rem, 2.67rem + 4.17vw, 6rem);
+  --sp-9: clamp(4.5rem, 3.04rem + 7.29vw, 8.5rem);
+  --sp-10: clamp(6rem, 3.5rem + 12.5vw, 13rem);
+
+  /* --- Rutenett ------------------------------------------------------- */
+  --gutter: clamp(1.15rem, 0.6rem + 2.75vw, 3.25rem);
+  --maxw: 78rem;
+  --maxw-narrow: 54rem;
+  --nav-h: clamp(3.75rem, 3.3rem + 2.2vw, 4.75rem);
+
+  /* --- Radier og bevegelse -------------------------------------------- */
+  --r-sm: 3px;
+  --r-md: 6px;
+  --r-lg: 12px;
+  --r-pill: 999px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-fast: 0.18s;
+  --t-mid: 0.32s;
+  --t-slow: 0.52s;
+
+  /* --- Papirkorn ------------------------------------------------------ */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}

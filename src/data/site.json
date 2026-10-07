@@ -1,0 +1,34 @@
+{
+  "name": "Bergsmyrene",
+  "legalName": "Severin Romer Iversen",
+  "orgnr": "930694231",
+  "tagline": "Diversitet + sirkularitet = bærekraft",
+  "address": {
+    "street": "Bergsmyrene 2",
+    "postalCode": "3483",
+    "city": "Kana",
+    "region": "Asker",
+    "country": "NO",
+    "lat": 59.5847,
+    "lon": 10.3669
+  },
+  "phone": "+4740073434",
+  "phoneDisplay": "+47 400 73 434",
+  "email": "kontakt@bergsmyrene.no",
+  "social": {
+    "instagram": "https://www.instagram.com/bergsmyrene/",
+    "facebook": "https://www.facebook.com/bergsmyrene"
+  },
+  "shopUrl": "https://www.bergsmyrene.no",
+  "proUrl": "https://platform.dagens.farm/bergsmyrene",
+  "newsletterAction": "",
+  "contactFormAction": "",
+  "gaId": "",
+  "notice": {
+    "active": true,
+    "text": "Nettbutikken åpner igjen til sommeren. Gårdsbutikken er åpen hele året, hele døgnet.",
+    "textEn": "The online shop reopens for the summer. The farm shop is open all year, around the clock.",
+    "href": "/besok-oss",
+    "until": ""
+  }
+}

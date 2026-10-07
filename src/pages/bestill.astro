@@ -1,0 +1,320 @@
+---
+import { Image } from "astro:assets";
+import SiteLayout from "@layouts/SiteLayout.astro";
+import PageHero from "@components/PageHero.astro";
+import Arrow from "@components/Arrow.astro";
+import { getLangFromUrl, localizePath } from "@i18n/ui";
+import { site } from "@data/site";
+import pickup from "@data/hentesteder.json";
+
+import heroImg from "@assets/kasser.jpg";
+import gulrotImg from "@assets/gulrot-kasser.jpg";
+
+const lang = getLangFromUrl(Astro.url);
+const L = (p: string) => localizePath(p, lang);
+const b = pickup.bestilling;
+
+const s =
+  lang === "en"
+    ? {
+        eyebrow: "Order",
+        title: "Order during the week, collect on Thursday",
+        lead: "Order in the online shop, we harvest and pack, and your bag is waiting at a pickup point near you on Thursday. Collection is free. Home delivery is available in some periods.",
+        heroAlt: "Crates of vegetables being loaded onto a trailer",
+        stepsEyebrow: "How it works",
+        stepsTitle: "Four steps",
+        steps: [
+          {
+            n: "01",
+            t: "Order",
+            d: "Order in the online shop and pay with Vipps, card or Klarna. You get a confirmation by email.",
+          },
+          {
+            n: "02",
+            t: "Deadline",
+            d: `The order deadline is ${b.fristEn}. Orders placed after that are delivered the following Thursday.`,
+          },
+          {
+            n: "03",
+            t: "We harvest",
+            d: `We harvest on ${b.hostedagerEn.toLowerCase()}, so that everything is ready to pack for Thursday's run.`,
+          },
+          {
+            n: "04",
+            t: "Collect",
+            d: "Your bag goes to the pickup point you chose, in Hurum, Oslo or Asker. Collect it within that place's opening hours.",
+          },
+        ],
+        factsTitle: "The practical bits",
+        facts: [
+          { k: "Delivery day", v: b.leveringEn },
+          { k: "Order deadline", v: b.fristEn },
+          { k: "Collection at a pickup point", v: "Free" },
+          { k: "Home delivery", v: `${b.fraktHjem} kr, when available` },
+          { k: "Payment", v: b.betaling.join(", ") },
+        ],
+        shopCta: "To the online shop",
+        pickupEyebrow: "Pickup points",
+        pickupTitle: "Where to collect",
+        pickupLead:
+          "Pick the point that suits you when you check out. Collection times are set by each place, so do keep to them.",
+        packEyebrow: "Packaging",
+        packTitle: "Bring the box back",
+        packBody: [
+          "We deliver in boxes. Please bring the box back on your next delivery, or bring a bag of your own to carry the goods home in.",
+          "We aim to use as little packaging as possible, and avoid plastic in particular. But to keep the produce fresh we do use packaging where it is needed.",
+        ],
+        packAlt: "Freshly pulled carrots being packed into green crates",
+        noteUnclear: "To be confirmed with the farm",
+        noAddress: "Address and collection time to be confirmed",
+        shippingCta: "Delivery and returns in full",
+      }
+    : {
+        eyebrow: "Bestill",
+        title: "Bestill i løpet av uka, hent på torsdag",
+        lead: "Bestill i nettbutikken, så høster og pakker vi, og posen din står klar på et hentested nær deg på torsdag. Henting er gratis. I perioder tilbyr vi også hjemlevering.",
+        heroAlt: "Kasser med grønnsaker lastes opp på en henger",
+        stepsEyebrow: "Slik fungerer det",
+        stepsTitle: "Fire steg",
+        steps: [
+          {
+            n: "01",
+            t: "Bestill",
+            d: "Bestill i nettbutikken og betal med Vipps, kort eller Klarna. Du får en bekreftelse på e-post.",
+          },
+          {
+            n: "02",
+            t: "Frist",
+            d: `Bestillingsfristen er ${b.frist.toLowerCase()}. Bestillinger som kommer etter det, leveres torsdag uken etter.`,
+          },
+          {
+            n: "03",
+            t: "Vi høster",
+            d: `Vi høster ${b.hostedager.toLowerCase()}, slik at alt er klart til pakking før torsdagsrunden.`,
+          },
+          {
+            n: "04",
+            t: "Hent",
+            d: "Posen din kjøres til hentestedet du valgte, i Hurum, Oslo eller Asker. Hent innenfor åpningstidene til stedet.",
+          },
+        ],
+        factsTitle: "Det praktiske",
+        facts: [
+          { k: "Leveringsdag", v: b.levering },
+          { k: "Bestillingsfrist", v: b.frist },
+          { k: "Henting på hentested", v: "Gratis" },
+          { k: "Hjemlevering", v: `${b.fraktHjem} kr, når det tilbys` },
+          { k: "Betaling", v: b.betaling.join(", ") },
+        ],
+        shopCta: "Til nettbutikken",
+        pickupEyebrow: "Hentesteder",
+        pickupTitle: "Hvor du henter",
+        pickupLead:
+          "Velg stedet som passer deg ved utsjekk. Hentetidene settes av hvert sted, så hold deg innenfor dem.",
+        packEyebrow: "Emballasje",
+        packTitle: "Ta med kassen tilbake",
+        packBody: [
+          "Vi bruker kasser til å levere i. Vennligst ta med kassen tilbake ved neste levering, eller ta med en egen pose å bære i når du henter varene.",
+          "Vi tilstreber å bruke så lite emballasje som mulig, og unngår spesielt plast. Men for at varene skal holde seg ferske og fine bruker vi emballasje der det er nødvendig.",
+        ],
+        packAlt: "Nyopptatte gulrøtter pakkes i grønne kasser",
+        noteUnclear: "Avklares med gården",
+        noAddress: "Adresse og hentetid avklares",
+        shippingCta: "Hele frakt- og returbetingelsen",
+      };
+---
+
+<SiteLayout title={s.eyebrow} description={s.lead}>
+  <PageHero
+    eyebrow={s.eyebrow}
+    title={s.title}
+    lead={s.lead}
+    image={heroImg}
+    imageAlt={s.heroAlt}
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="sechead" data-reveal>
+        <span class="eyebrow">{s.stepsEyebrow}</span>
+        <span class="sechead__rule"></span>
+      </div>
+      <h2 style="margin-bottom: var(--sp-7);" data-reveal>{s.stepsTitle}</h2>
+
+      <ol class="steps">
+        {
+          s.steps.map((st, i) => (
+            <li data-reveal data-reveal-delay={String(Math.min(i + 1, 4))}>
+              <span class="steps__n">{st.n}</span>
+              <h3 class="card__title">{st.t}</h3>
+              <p class="card__text">{st.d}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" data-dark>
+    <div class="wrap">
+      <div class="split">
+        <div data-reveal>
+          <h2 style="margin-bottom: var(--sp-5);">{s.factsTitle}</h2>
+          <dl class="deflist">
+            {
+              s.facts.map((f) => (
+                <div>
+                  <dt>{f.k}</dt>
+                  <dd>{f.v}</dd>
+                </div>
+              ))
+            }
+          </dl>
+          <p style="margin-top: var(--sp-5); display: flex; gap: var(--sp-3); flex-wrap: wrap;">
+            <a class="btn btn--ember" href={site.shopUrl} rel="noopener" target="_blank">
+              {s.shopCta}<Arrow class="btn__arrow" />
+            </a>
+            <a class="btn btn--ghost" href={L("/frakt-og-retur")}>{s.shippingCta}</a>
+          </p>
+        </div>
+
+        <div data-reveal data-reveal-delay="1">
+          <p class="eyebrow">{s.packEyebrow}</p>
+          <h3 style="font-size: var(--fs-xl); margin-block: var(--sp-3) var(--sp-4);">
+            {s.packTitle}
+          </h3>
+          {s.packBody.map((p) => <p class="lead" style="margin-bottom: var(--sp-4);">{p}</p>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="hentesteder">
+    <div class="wrap">
+      <div class="sechead" data-reveal>
+        <span class="eyebrow">{s.pickupEyebrow}</span>
+        <span class="sechead__rule"></span>
+      </div>
+      <div class="split split--wide-right" style="margin-bottom: var(--sp-7);">
+        <h2 data-reveal>{s.pickupTitle}</h2>
+        <p class="lead" data-reveal data-reveal-delay="1">{s.pickupLead}</p>
+      </div>
+
+      {
+        pickup.omrader.map((omr, i) => (
+          <div class="area" data-reveal data-reveal-delay={String(Math.min(i + 1, 3))}>
+            <h3 class="area__name">{omr.navn}</h3>
+            <div class="grid grid--3">
+              {omr.steder.map((st) => (
+                <article class="panel">
+                  <h4 class="card__title">{st.navn}</h4>
+                  <p class="card__text" style="margin-top: var(--sp-3);">
+                    {st.adresse || s.noAddress}
+                  </p>
+                  {st.hentetid && (
+                    <p class="pickup__time">
+                      {lang === "en" ? "Collection" : "Hentetid"}: {st.hentetid}
+                    </p>
+                  )}
+                  {st.veibeskrivelse && (
+                    <p class="formnote" style="margin-top: var(--sp-3);">
+                      {lang === "en" ? st.veibeskrivelseEn : st.veibeskrivelse}
+                    </p>
+                  )}
+                  {st.uavklart && (
+                    <p style="margin-top: var(--sp-3);">
+                      <span class="tag tag--ember">{s.noteUnclear}</span>
+                    </p>
+                  )}
+                </article>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+
+      <figure class="imgfig" style="margin-top: var(--sp-8);" data-reveal>
+        <Image
+          src={gulrotImg}
+          alt={s.packAlt}
+          widths={[800, 1400, 2000]}
+          sizes="(max-width: 1200px) 94vw, 76rem"
+          quality={78}
+        />
+      </figure>
+    </div>
+  </section>
+</SiteLayout>
+
+<style>
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    gap: var(--sp-6);
+  }
+
+  .steps li {
+    border-top: 1px solid var(--rule-strong);
+    padding-top: var(--sp-4);
+  }
+
+  .steps__n {
+    display: block;
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: var(--tr-meta);
+    color: var(--ember);
+    margin-bottom: var(--sp-3);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .steps .card__title {
+    margin-bottom: var(--sp-2);
+  }
+
+  .area {
+    margin-bottom: var(--sp-7);
+  }
+
+  .area__name {
+    font-family: var(--ff-sans);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: var(--tr-meta);
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    padding-bottom: var(--sp-3);
+    margin-bottom: var(--sp-5);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .pickup__time {
+    margin-top: var(--sp-3);
+    font-size: var(--fs-sm);
+    font-variant-numeric: tabular-nums;
+    color: var(--fg);
+  }
+
+  .imgfig {
+    margin: 0;
+    aspect-ratio: 21 / 9;
+    overflow: hidden;
+    border-radius: var(--r-md);
+    background: var(--surface-2);
+  }
+
+  .imgfig :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 760px) {
+    .imgfig {
+      aspect-ratio: 3 / 2;
+    }
+  }
+</style>

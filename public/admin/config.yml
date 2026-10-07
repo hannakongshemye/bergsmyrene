@@ -1,0 +1,210 @@
+backend:
+  name: github
+  repo: hannakongshemye/bergsmyrene
+  branch: main
+  base_url: https://sveltia-cms-auth.hannakongshem.workers.dev
+
+# Lokal redigering: kjør `npm run cms` ved siden av `npm run dev`
+local_backend: true
+
+publish_mode: simple
+site_url: https://www.bergsmyrene.no
+display_url: https://www.bergsmyrene.no
+locale: no
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: innstillinger
+    label: Innstillinger
+    files:
+      - name: site
+        label: Gården og kontaktinfo
+        file: src/data/site.json
+        description: Navn, kontaktinfo, lenker og beskjeden som står øverst på sidene.
+        fields:
+          - { name: name, label: Navn, widget: string }
+          - { name: legalName, label: Juridisk navn, widget: string }
+          - { name: orgnr, label: Organisasjonsnummer, widget: string }
+          - { name: tagline, label: Slagord, widget: string }
+          - name: address
+            label: Adresse
+            widget: object
+            fields:
+              - { name: street, label: Gateadresse, widget: string }
+              - { name: postalCode, label: Postnummer, widget: string }
+              - { name: city, label: Poststed, widget: string }
+              - { name: region, label: Kommune, widget: string }
+              - { name: country, label: Land, widget: string, default: "NO" }
+              - { name: lat, label: Breddegrad, widget: number, value_type: float }
+              - { name: lon, label: Lengdegrad, widget: number, value_type: float }
+          - { name: phone, label: Telefon (maskinlesbar), widget: string, hint: "Format: +4740073434" }
+          - { name: phoneDisplay, label: Telefon (slik den vises), widget: string }
+          - { name: email, label: E-post, widget: string }
+          - name: social
+            label: Sosiale medier
+            widget: object
+            fields:
+              - { name: instagram, label: Instagram, widget: string, required: false }
+              - { name: facebook, label: Facebook, widget: string, required: false }
+          - { name: shopUrl, label: Lenke til nettbutikken, widget: string, hint: "Adressen til Mystore-butikken" }
+          - { name: proUrl, label: Lenke til Dagens (proffbestilling), widget: string }
+          - { name: newsletterAction, label: Formspree-ID for nyhetsbrev, widget: string, required: false, hint: "La stå tom til dere har en. Da brukes e-post i stedet." }
+          - { name: contactFormAction, label: Formspree-ID for kontaktskjema, widget: string, required: false }
+          - { name: gaId, label: Google Analytics-ID, widget: string, required: false }
+          - name: notice
+            label: Beskjed øverst på siden
+            widget: object
+            fields:
+              - { name: active, label: Vis beskjeden, widget: boolean, default: false }
+              - { name: text, label: Tekst (norsk), widget: string }
+              - { name: textEn, label: Tekst (engelsk), widget: string }
+              - { name: href, label: Lenke, widget: string, required: false, hint: "For eksempel /besok-oss" }
+              - { name: until, label: Vis til og med, widget: datetime, required: false, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false, hint: "Beskjeden forsvinner av seg selv etter denne datoen." }
+
+      - name: apningstider
+        label: Åpningstider
+        file: src/data/apningstider.json
+        fields:
+          - { name: _note, label: Internt notat, widget: text, required: false }
+          - name: steder
+            label: Steder
+            label_singular: Sted
+            widget: list
+            summary: "{{fields.navn}}"
+            fields:
+              - { name: key, label: Nøkkel, widget: string, hint: "Kort maskinnavn, endres helst ikke" }
+              - { name: navn, label: Navn, widget: string }
+              - { name: navnEn, label: Navn (engelsk), widget: string }
+              - { name: beskrivelse, label: Beskrivelse, widget: text }
+              - { name: beskrivelseEn, label: Beskrivelse (engelsk), widget: text }
+              - name: tider
+                label: Tider
+                widget: list
+                fields:
+                  - { name: dager, label: Dager, widget: string }
+                  - { name: dagerEn, label: Dager (engelsk), widget: string }
+                  - { name: tid, label: Klokkeslett, widget: string, required: false }
+              - { name: merknad, label: Merknad, widget: string, required: false }
+              - { name: merknadEn, label: Merknad (engelsk), widget: string, required: false }
+              - { name: alltidApen, label: Alltid åpen, widget: boolean, default: false }
+
+      - name: hentesteder
+        label: Hentesteder og bestilling
+        file: src/data/hentesteder.json
+        fields:
+          - { name: _note, label: Internt notat, widget: text, required: false }
+          - { name: leveringsdag, label: Leveringsdag, widget: string }
+          - { name: leveringsdagEn, label: Leveringsdag (engelsk), widget: string }
+          - name: bestilling
+            label: Bestilling
+            widget: object
+            fields:
+              - { name: _note, label: Internt notat, widget: text, required: false }
+              - { name: frist, label: Bestillingsfrist, widget: string }
+              - { name: fristEn, label: Bestillingsfrist (engelsk), widget: string }
+              - { name: fristUavklart, label: Fristen er ikke avklart, widget: boolean, default: false }
+              - { name: hostedager, label: Høstedager, widget: string }
+              - { name: hostedagerEn, label: Høstedager (engelsk), widget: string }
+              - { name: levering, label: Leveringsdag, widget: string }
+              - { name: leveringEn, label: Leveringsdag (engelsk), widget: string }
+              - { name: fraktHentested, label: Frakt til hentested (kr), widget: number }
+              - { name: fraktHjem, label: Frakt hjem (kr), widget: number }
+              - { name: betaling, label: Betalingsmåter, widget: list, field: { name: m, label: Måte, widget: string } }
+          - name: omrader
+            label: Områder
+            label_singular: Område
+            widget: list
+            summary: "{{fields.navn}}"
+            fields:
+              - { name: navn, label: Områdenavn, widget: string }
+              - name: steder
+                label: Hentesteder
+                label_singular: Hentested
+                widget: list
+                summary: "{{fields.navn}}"
+                fields:
+                  - { name: navn, label: Navn, widget: string }
+                  - { name: adresse, label: Adresse, widget: string, required: false }
+                  - { name: hentetid, label: Hentetid, widget: string, required: false }
+                  - { name: veibeskrivelse, label: Veibeskrivelse, widget: text, required: false }
+                  - { name: veibeskrivelseEn, label: Veibeskrivelse (engelsk), widget: text, required: false }
+                  - { name: uavklart, label: Mangler opplysninger, widget: boolean, default: false, required: false }
+
+  - name: sesong
+    label: Sesong
+    files:
+      - name: season
+        label: Gårdsåret og avlingene
+        file: src/data/season.json
+        description: Hjulet på forsiden og sesongtabellen. Månedene er tall fra 1 til 12.
+        fields:
+          - { name: _note, label: Internt notat, widget: text, required: false }
+          - name: highSeason
+            label: Høysesong
+            widget: object
+            fields:
+              - { name: from, label: Fra måned, widget: number, min: 1, max: 12 }
+              - { name: to, label: Til måned, widget: number, min: 1, max: 12 }
+          - name: phases
+            label: Faser i året
+            label_singular: Fase
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: key, label: Nøkkel, widget: string }
+              - { name: months, label: Måneder, widget: list, field: { name: m, label: Måned, widget: number, min: 1, max: 12 } }
+              - { name: title, label: Tittel, widget: string }
+              - { name: lead, label: Beskrivelse, widget: text }
+              - { name: intensity, label: Intensitet (1 til 3), widget: number, min: 1, max: 3 }
+          - { name: cropsAreIndicative, label: Vis at tabellen er veiledende, widget: boolean, default: true }
+          - name: crops
+            label: Avlinger
+            label_singular: Avling
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: Navn, widget: string }
+              - name: group
+                label: Gruppe
+                widget: select
+                options:
+                  - { label: Bladgrønnsaker, value: blad }
+                  - { label: Urter, value: urter }
+                  - { label: Drivhusvekster, value: drivhus }
+                  - { label: Rotgrønnsaker, value: rot }
+                  - { label: Annet, value: annet }
+              - { name: months, label: Måneder i sesong, widget: list, field: { name: m, label: Måned, widget: number, min: 1, max: 12 } }
+
+  - name: garden
+    label: Gården
+    files:
+      - name: garden
+        label: Folk, samarbeid og kunder
+        file: src/data/garden.json
+        fields:
+          - { name: _note, label: Internt notat, widget: text, required: false }
+          - name: team
+            label: Folkene på gården
+            label_singular: Person
+            widget: list
+            summary: "{{fields.navn}}"
+            fields:
+              - { name: navn, label: Navn, widget: string }
+              - { name: rolle, label: Rolle, widget: string }
+              - { name: rolleEn, label: Rolle (engelsk), widget: string }
+          - name: samarbeidsgarder
+            label: Samarbeidsgårder
+            label_singular: Gård
+            widget: list
+            summary: "{{fields.navn}}"
+            fields:
+              - { name: navn, label: Navn, widget: string }
+              - { name: sted, label: Sted, widget: string }
+              - { name: tekst, label: Tekst, widget: text }
+              - { name: tekstEn, label: Tekst (engelsk), widget: text }
+              - { name: url, label: Nettside, widget: string, required: false }
+          - { name: restauranter, label: Restauranter, widget: list, field: { name: n, label: Navn, widget: string } }
+          - { name: butikker, label: Butikker og kooperativ, widget: list, field: { name: n, label: Navn, widget: string } }
+          - { name: andre, label: Andre steder, widget: list, field: { name: n, label: Navn, widget: string } }

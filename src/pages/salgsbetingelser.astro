@@ -1,0 +1,133 @@
+---
+import SiteLayout from "@layouts/SiteLayout.astro";
+import { getLangFromUrl } from "@i18n/ui";
+import vilkar from "@data/vilkar.json";
+
+const lang = getLangFromUrl(Astro.url);
+
+const s =
+  lang === "en"
+    ? {
+        eyebrow: "Terms",
+        title: "Terms of sale",
+        lead: "Standard terms of sale for consumer purchases of goods over the internet, drawn up and recommended by the Norwegian Consumer Authority.",
+        noteTitle: "In Norwegian",
+        note: "The terms below are the legally binding Norwegian text. If anything is unclear, get in touch and we will explain it.",
+      }
+    : {
+        eyebrow: "Vilkår",
+        title: "Salgsbetingelser",
+        lead: "Standard salgsbetingelser for forbrukerkjøp av varer over internett, utarbeidet og anbefalt brukt av Forbrukerombudet.",
+        noteTitle: "",
+        note: "",
+      };
+---
+
+<SiteLayout title={s.title} description={s.lead}>
+  <section class="section section--tight">
+    <div class="wrap wrap--narrow">
+      <p class="eyebrow" data-reveal>{s.eyebrow}</p>
+      <h1 style="margin-block: var(--sp-3) var(--sp-5);" data-reveal data-reveal-delay="1">
+        {s.title}
+      </h1>
+      <p class="lead" data-reveal data-reveal-delay="2">{s.lead}</p>
+
+      {
+        lang === "en" && (
+          <div class="panel" style="margin-top: var(--sp-6);">
+            <h2 class="card__title">{s.noteTitle}</h2>
+            <p class="card__text" style="margin-top: var(--sp-3);">{s.note}</p>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap wrap--narrow">
+      <nav class="toc" aria-label={lang === "en" ? "Contents" : "Innhold"}>
+        <h2 class="toc__title">{lang === "en" ? "Contents" : "Innholdsfortegnelse"}</h2>
+        <ol>
+          {
+            vilkar.salgsbetingelser.map((sec, i) => (
+              <li>
+                <a href={`#vilkar-${i}`}>{sec.h}</a>
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
+
+      <div class="legal" lang="nb">
+        {
+          vilkar.salgsbetingelser.map((sec, i) => (
+            <section id={`vilkar-${i}`}>
+              <h2>{sec.h}</h2>
+              {sec.p.map((p) => (
+                <p>{p}</p>
+              ))}
+            </section>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</SiteLayout>
+
+<style>
+  .toc {
+    border: 1px solid var(--rule);
+    border-radius: var(--r-md);
+    background: var(--surface);
+    padding: var(--sp-5);
+    margin-bottom: var(--sp-8);
+  }
+
+  .toc__title {
+    font-family: var(--ff-sans);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: var(--tr-meta);
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    margin-bottom: var(--sp-4);
+  }
+
+  .toc ol {
+    margin: 0;
+    padding-left: 1.2em;
+    columns: 2;
+    column-gap: var(--sp-6);
+    font-size: var(--fs-sm);
+  }
+
+  @media (max-width: 620px) {
+    .toc ol {
+      columns: 1;
+    }
+  }
+
+  .toc li {
+    break-inside: avoid;
+    margin-bottom: var(--sp-2);
+  }
+
+  .legal section {
+    margin-bottom: var(--sp-7);
+    scroll-margin-top: calc(var(--nav-h) + var(--sp-5));
+  }
+
+  .legal h2 {
+    font-size: var(--fs-lg);
+    padding-bottom: var(--sp-3);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: var(--sp-4);
+  }
+
+  .legal p {
+    max-width: var(--measure);
+    color: var(--fg-soft);
+    font-size: var(--fs-sm);
+    margin-bottom: var(--sp-3);
+  }
+</style>
