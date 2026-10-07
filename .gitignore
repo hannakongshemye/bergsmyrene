@@ -11,6 +11,7 @@
 .env
 .env.production
 .idea/
+.preview/
 .vercel/
 _source/
 dist/

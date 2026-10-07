@@ -1,5 +1,6 @@
 ---
 /** Vert for Sveltia CMS. Innholdet redigeres direkte i JSON-filene i repoet. */
+import { asset } from "@i18n/ui";
 ---
 
 <!doctype html>
@@ -9,8 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
     <title>Innhold &middot; Bergsmyrene</title>
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
+    <link rel="icon" href={asset("/favicon.svg")} type="image/svg+xml" />
+    <link href={asset("/admin/config.yml")} type="text/yaml" rel="cms-config-url" />
     <style>
       body { margin: 0; background: #161a12; }
     </style>

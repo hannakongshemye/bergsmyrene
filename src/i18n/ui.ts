@@ -1,24 +1,43 @@
+/**
+ * Base-sti. Tom i produksjon, "/bergsmyrene" n\u00e5r siden bygges for GitHub Pages.
+ * Astro setter selv basen p\u00e5 bygde ressurser, men ikke p\u00e5 lenker vi skriver selv.
+ */
+const BASE = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
+
+/** Fjerner base-stien fra en URL-sti, slik at resten av koden slipper \u00e5 vite om den. */
+export function withoutBase(pathname: string): string {
+  if (!BASE) return pathname;
+  if (pathname === BASE) return "/";
+  return pathname.startsWith(BASE + "/") ? pathname.slice(BASE.length) : pathname;
+}
+
+/** Sti til en fil i public/, med base-stien foran. */
+export function asset(path: string): string {
+  return `${BASE}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
 export const languages = { no: "Norsk", en: "English" } as const;
 export type Lang = keyof typeof languages;
 export const defaultLang: Lang = "no";
 
 /** Henter språk ut av URL-en. Alt under /en/ er engelsk, resten norsk. */
 export function getLangFromUrl(url: URL): Lang {
-  const [, first] = url.pathname.split("/");
+  const [, first] = withoutBase(url.pathname).split("/");
   return first === "en" ? "en" : "no";
 }
 
 /** Gjør en norsk sti om til riktig sti for valgt språk. */
 export function localizePath(path: string, lang: Lang): string {
   const clean = path.startsWith("/") ? path : `/${path}`;
-  if (lang === "no") return clean;
-  return clean === "/" ? "/en" : `/en${clean}`;
+  const localized = lang === "no" ? clean : clean === "/" ? "/en" : `/en${clean}`;
+  return BASE ? `${BASE}${localized}` : localized;
 }
 
 /** Fjerner /en-prefikset, slik at språkveksleren finner søsterside. */
 export function stripLocale(pathname: string): string {
-  if (pathname === "/en" || pathname === "/en/") return "/";
-  return pathname.startsWith("/en/") ? pathname.slice(3) : pathname;
+  const p = withoutBase(pathname);
+  if (p === "/en" || p === "/en/") return "/";
+  return p.startsWith("/en/") ? p.slice(3) : p;
 }
 
 /** Bygger en href-hjelper bundet til ett språk: const L = href(lang) */

@@ -6,6 +6,7 @@ import {
   localizePath,
   stripLocale,
   useTranslations,
+  asset,
 } from "@i18n/ui";
 import { site, addressLine } from "@data/site";
 import LangToggle from "@components/LangToggle.astro";
@@ -44,7 +45,7 @@ const canonical = new URL(Astro.url.pathname.replace(/\/$/, "") || "/", Astro.si
 const basePath = stripLocale(Astro.url.pathname);
 const altNo = new URL(localizePath(basePath, "no"), Astro.site);
 const altEn = new URL(localizePath(basePath, "en"), Astro.site);
-const ogUrl = new URL(ogImage, Astro.site);
+const ogUrl = new URL(asset(ogImage), Astro.site);
 
 const fullTitle =
   title === site.name ? `${site.name}. ${site.tagline}` : `${title}. ${site.name}`;
@@ -117,9 +118,9 @@ const orgLd = {
     <meta name="twitter:card" content="summary_large_image" />
 
     <meta name="theme-color" content="#161a12" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" href={asset("/favicon.svg")} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={asset("/brand/apple-touch-icon.png")} />
+    <link rel="sitemap" href={asset("/sitemap-index.xml")} />
 
     <script
       type="application/ld+json"

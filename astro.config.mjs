@@ -30,8 +30,15 @@ const legacyRedirects = {
   "/blog/lorem-ipsum": "/garden",
 };
 
+/**
+ * Forh\u00e5ndsvisning p\u00e5 GitHub Pages bygges med PAGES=1. Da flyttes siden under
+ * /bergsmyrene/. Uten den bygges den som vanlig for bergsmyrene.no.
+ */
+const onPages = process.env.PAGES === "1";
+
 export default defineConfig({
-  site: "https://www.bergsmyrene.no",
+  site: onPages ? "https://hannakongshemye.github.io" : "https://www.bergsmyrene.no",
+  base: onPages ? "/bergsmyrene" : undefined,
   output: "static",
   trailingSlash: "ignore",
   prefetch: { prefetchAll: true, defaultStrategy: "hover" },
@@ -40,7 +47,15 @@ export default defineConfig({
     locales: ["no", "en"],
     routing: { prefixDefaultLocale: false },
   },
-  redirects: legacyRedirects,
+  // Astro setter ikke base-stien pa redirect-mal, sa vi gjor det selv.
+  redirects: onPages
+    ? Object.fromEntries(
+        Object.entries(legacyRedirects).map(([from, to]) => [
+          from,
+          `/bergsmyrene${to}`,
+        ]),
+      )
+    : legacyRedirects,
   integrations: [
     sitemap({
       i18n: {
